@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IPDC Office Library</title>
+        <!-- Google Fonts (Metropolis fallback + Bengali Support) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@600;700&family=Montserrat:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- FontAwesome for Icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <style>
+            :root {
+                --primary-navy: #1b365d; /* Deep corporate blue */
+                --secondary-teal: #2c5364; /* Teal shade */
+                --accent-pink: #e91e63; /* Vibrant pink from logo */
+                --light-bg: #f4f7f6; /* Very light grey/blue */
+                --text-dark: #333333;
+                --text-light: #777777;
+                --white: #ffffff;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: "Metropolis", "Montserrat", sans-serif;
+                background-color: var(--light-bg);
+                color: var(--text-dark);
+                line-height: 1.6;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: "Metropolis", "Montserrat", sans-serif;
+                color: var(--primary-navy);
+            }
+
+            /* Navbar */
+            .navbar {
+                background: var(--white);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                padding: 10px 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+            }
+            .nav-logo img {
+                height: 45px;
+            } /* IPDC Logo */
+            .nav-links a {
+                color: var(--text-dark);
+                text-decoration: none;
+                margin-left: 25px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: color 0.3s;
+            }
+            .nav-links a:hover {
+                color: var(--accent-pink);
+            }
+
+            /* Hero Section */
+            .hero {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary-navy),
+                    var(--secondary-teal)
+                );
+                color: var(--white);
+                padding: 60px 40px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 300px;
+                height: 100%;
+                background: linear-gradient(
+                    45deg,
+                    transparent,
+                    rgba(233, 30, 99, 0.2)
+                );
+                transform: skewX(-20deg);
+            }
+
+            /* Bengali Title Styling */
+            .hero h1 {
+                color: var(--white);
+                font-size: 3.5rem;
+                margin-bottom: 15px;
+                position: relative;
+                font-family:
+                    "Hind Siliguri", sans-serif; /* Beautiful Bengali rendering */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .hero p {
+                font-size: 1.1rem;
+                opacity: 0.9;
+                max-width: 600px;
+                margin: 0 auto;
+                position: relative;
+            }
+            .hero p i {
+                color: var(--accent-pink);
+                margin-right: 10px;
+            }
+
+            /* Container */
+            .container {
+                max-width: 1200px;
+                margin: -40px auto 40px;
+                padding: 0 40px;
+                position: relative;
+                z-index: 10;
+            }
+
+            /* Search Bar */
+            .search-bar {
+                position: relative;
+                margin-bottom: 30px;
+            }
+            .search-bar i {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--text-light);
+                font-size: 1.1rem;
+            }
+            .search-input {
+                width: 100%;
+                padding: 15px 20px 15px 45px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                font-size: 1rem;
+                font-family: "Metropolis", "Montserrat", sans-serif;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            }
+            .search-input:focus {
+                outline: none;
+                border-color: var(--accent-pink);
+                box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+            }
+
+            /* Catalog Grid */
+            .book-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 25px;
+            }
+            .book-card {
+                background: var(--white);
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                transition:
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease;
+                border-top: 4px solid transparent;
+                display: flex;
+                flex-direction: column;
+            }
+            .book-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+                border-top-color: var(--accent-pink);
+            }
+            .card-body {
+                padding: 20px;
+                text-align: center;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .book-category {
+                display: inline-block;
+                background: #fce4ec;
+                color: var(--accent-pink);
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            .book-title {
+                font-size: 1.1rem;
+                font-weight: 700;
+                margin-bottom: 5px;
+                line-height: 1.4;
+            }
+            .book-author {
+                color: var(--text-light);
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+                font-style: italic;
+            }
+            .status {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 12px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                margin-bottom: 15px;
+            }
+            .status.in {
+                background: #e8f5e9;
+                color: #2e7d32;
+            }
+            .status.out {
+                background: #ffebee;
+                color: #c62828;
+            }
+
+            /* Buttons */
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: background 0.3s;
+                width: 100%;
+                font-family: "Metropolis", "Montserrat", sans-serif;
+            }
+            .btn-primary {
+                background: var(--primary-navy);
+                color: var(--white);
+            }
+            .btn-primary:hover {
+                background: var(--secondary-teal);
+            }
+            .btn-pink {
+                background: var(--accent-pink);
+                color: var(--white);
+            }
+            .btn-pink:hover {
+                background: #c2185b;
+            }
+
+            /* Return Section */
+            .return-container {
+                max-width: 800px;
+                margin: 0 auto 60px;
+                padding: 0 40px;
+            }
+            .return-box {
+                background: var(--white);
+                padding: 40px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                text-align: center;
+                border-top: 4px solid var(--accent-pink);
+            }
+            .return-box h2 {
+                margin-bottom: 10px;
+            }
+            .return-box p {
+                color: var(--text-light);
+                margin-bottom: 25px;
+            }
+            .return-form {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .return-input {
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                width: 300px;
+                max-width: 100%;
+                font-family: "Metropolis", "Montserrat", sans-serif;
+            }
+            .return-input:focus {
+                outline: none;
+                border-color: var(--primary-navy);
+            }
+
+            /* Message Box */
+            .message-box {
+                margin-top: 20px;
+                font-weight: 600;
+                padding: 12px;
+                border-radius: 4px;
+                display: none;
+            }
+            .message-box.success {
+                display: block;
+                background: #e8f5e9;
+                color: #2e7d32;
+            }
+            .message-box.error {
+                display: block;
+                background: #ffebee;
+                color: #c62828;
+            }
+
+            /* Modal */
+            .modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(27, 54, 93, 0.8);
+                justify-content: center;
+                align-items: center;
+                z-index: 100;
+            }
+            .modal-content {
+                background: var(--white);
+                padding: 40px;
+                border-radius: 8px;
+                width: 100%;
+                max-width: 400px;
+                text-align: center;
+                position: relative;
+                animation: slideIn 0.4s ease;
+            }
+            @keyframes slideIn {
+                from {
+                    transform: translateY(-50px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            .modal-content h3 {
+                margin-bottom: 20px;
+            }
+            .modal-content input {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                font-family: "Metropolis", "Montserrat", sans-serif;
+            }
+            .modal-content input:focus {
+                outline: none;
+                border-color: var(--accent-pink);
+            }
+            .modal-close {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-light);
+                cursor: pointer;
+            }
+
+            /* Footer */
+            .footer {
+                background: var(--primary-navy);
+                color: var(--white);
+                text-align: center;
+                padding: 30px;
+                margin-top: auto;
+            }
+            .footer p {
+                font-size: 0.9rem;
+                opacity: 0.8;
+            }
+
+            .loading {
+                text-align: center;
+                grid-column: 1 / -1;
+                padding: 60px;
+                font-size: 1.2rem;
+                color: var(--primary-navy);
+            }
+            .loading i {
+                animation: spin 2s linear infinite;
+            }
+            @keyframes spin {
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-logo">
+                <!-- IPDC Logo -->
+                <img
+                    src="logo.png"
+                    alt="IPDC Finance Logo"
+                    onerror="this.style.display = 'none'"
+                />
+            </div>
+            <div class="nav-links">
+                <a href="#catalog"><i class="fas fa-book-open"></i> Catalog</a>
+                <a href="#return"><i class="fas fa-undo-alt"></i> Return</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>প্রভাকুঞ্জ</h1>
+            <p>
+                <i class="fas fa-book-reader"></i> Knowledge Solutions for Every
+                Stage
+            </p>
+        </section>
+
+        <!-- Catalog Section -->
+        <div id="catalog" class="container">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="Search by title, author, or category..."
+                    onkeyup="filterBooks()"
+                />
+            </div>
+
+            <div class="book-grid" id="bookGrid">
+                <div class="loading">
+                    <i class="fas fa-spinner"></i> Loading Collection...
+                </div>
+            </div>
+        </div>
+
+        <!-- Return Section -->
+        <div id="return" class="return-container">
+            <div class="return-box">
+                <h2>
+                    <i
+                        class="fas fa-undo-alt"
+                        style="color: var(--accent-pink)"
+                    ></i>
+                    Return a Book
+                </h2>
+                <p>
+                    Enter the Loan ID from your approval email to complete your
+                    return.
+                </p>
+                <div class="return-form">
+                    <input
+                        type="text"
+                        id="returnLoanId"
+                        class="return-input"
+                        placeholder="e.g. L1698457234567"
+                    />
+                    <button
+                        class="btn btn-pink"
+                        onclick="submitReturnRequest()"
+                    >
+                        <i class="fas fa-check"></i> Process Return
+                    </button>
+                </div>
+                <div id="returnMessageBox" class="message-box"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                &copy; 2026 IPDC Office Library System. Empowering Growth
+                Through Knowledge.
+            </p>
+        </footer>
+
+        <!-- Borrow Modal -->
+        <div id="borrowModal" class="modal-overlay">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3 id="modalBookTitle">Borrow Book</h3>
+                <p
+                    style="
+                        color: var(--text-light);
+                        margin-bottom: 20px;
+                        font-size: 0.9rem;
+                    "
+                >
+                    Please provide your details to request this book.
+                </p>
+                <input type="text" id="empName" placeholder="Your Full Name" />
+                <input
+                    type="email"
+                    id="empEmail"
+                    placeholder="Your Email Address"
+                />
+                <input type="hidden" id="hiddenBookId" />
+                <button class="btn btn-primary" onclick="submitBorrowRequest()">
+                    <i class="fas fa-paper-plane"></i> Submit Request
+                </button>
+                <p
+                    id="modalMessage"
+                    style="
+                        margin-top: 15px;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                    "
+                ></p>
+            </div>
+        </div>
+
+        <script>
+            // ==========================================
+            // PASTE YOUR APPS SCRIPT URL ON LINE BELOW (Line 208)
+            // ==========================================
+            const APPS_SCRIPT_URL =
+                "https://script.google.com/macros/s/AKfycbxpswLGxx9pFn6URlL8TrRf4IaorGfI95ctxN0WbMbGoaTWqG8Kn48A2LX6IUnxFrme/exec";
+
+            let allBooks = []; // Global variable to store fetched books
+
+            // Fetch catalog on load
+            window.onload = () => {
+                fetch(APPS_SCRIPT_URL)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        allBooks = data;
+                        renderBooks(allBooks);
+                    })
+                    .catch((error) => {
+                        document.getElementById("bookGrid").innerHTML =
+                            '<p style="color:red; text-align:center;">Error loading books. Check Apps Script URL.</p>';
+                        console.error("Error:", error);
+                    });
+            };
+
+            // Function to render books into the grid
+            function renderBooks(booksToRender) {
+                const grid = document.getElementById("bookGrid");
+                grid.innerHTML = "";
+
+                if (booksToRender.length === 0) {
+                    grid.innerHTML =
+                        '<p style="text-align: center; grid-column: 1/-1; color: var(--text-light); padding: 40px;"><i class="fas fa-info-circle"></i> No books found matching your search.</p>';
+                    return;
+                }
+
+                booksToRender.forEach((book) => {
+                    let statusClass =
+                        book["Available Copies"] > 0 ? "in" : "out";
+                    let statusIcon =
+                        book["Available Copies"] > 0
+                            ? "fa-check-circle"
+                            : "fa-times-circle";
+                    let statusText =
+                        book["Available Copies"] > 0
+                            ? `${book["Available Copies"]} Available`
+                            : "Out of Stock";
+
+                    let safeTitle = book["Title"]
+                        .replace(/'/g, "\\'")
+                        .replace(/"/g, "&quot;");
+                    let safeBookId = book["Book ID"].replace(/'/g, "\\'");
+
+                    let buttonHtml = `<button class="btn btn-primary" onclick="openModal('${safeBookId}', '${safeTitle}')"><i class="fas fa-hand-holding-book"></i> Borrow</button>`;
+
+                    grid.innerHTML += `
+                <div class="book-card">
+                    <div class="card-body">
+                        <div>
+                            <span class="book-category">${book["Category"] || "General"}</span>
+                            <h3 class="book-title">${book["Title"]}</h3>
+                            <p class="book-author">by ${book["Author"]}</p>
+                        </div>
+                        <div>
+                            <div class="status ${statusClass}"><i class="fas ${statusIcon}"></i> ${statusText}</div>
+                            ${buttonHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+                });
+            }
+
+            // Function to filter books based on search input
+            function filterBooks() {
+                const query = document
+                    .getElementById("searchInput")
+                    .value.toLowerCase();
+                const filteredBooks = allBooks.filter((book) => {
+                    const title = (book["Title"] || "").toLowerCase();
+                    const author = (book["Author"] || "").toLowerCase();
+                    const category = (book["Category"] || "").toLowerCase();
+
+                    return (
+                        title.includes(query) ||
+                        author.includes(query) ||
+                        category.includes(query)
+                    );
+                });
+                renderBooks(filteredBooks);
+            }
+
+            // --- BORROW LOGIC ---
+            function openModal(bookId, bookTitle) {
+                document.getElementById("hiddenBookId").value = bookId;
+                document.getElementById("modalBookTitle").innerText =
+                    `Borrow: ${bookTitle}`;
+                document.getElementById("modalMessage").innerText = "";
+                document.getElementById("modalMessage").style.color =
+                    "var(--primary-navy)";
+                document.getElementById("borrowModal").style.display = "flex";
+            }
+
+            function closeModal() {
+                document.getElementById("borrowModal").style.display = "none";
+            }
+
+            function submitBorrowRequest() {
+                const bookId = document.getElementById("hiddenBookId").value;
+                const name = document.getElementById("empName").value;
+                const email = document.getElementById("empEmail").value;
+
+                if (!name || !email) {
+                    alert("Please enter your name and email.");
+                    return;
+                }
+
+                const msgDiv = document.getElementById("modalMessage");
+                msgDiv.innerText = "Processing...";
+                msgDiv.style.color = "var(--text-light)";
+
+                fetch(APPS_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        action: "borrow",
+                        bookId: bookId,
+                        name: name,
+                        email: email,
+                    }),
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        msgDiv.innerText = data.message;
+
+                        if (data.status === "error") {
+                            msgDiv.style.color = "#C62828"; // Red
+                        } else {
+                            msgDiv.style.color = "#2E7D32"; // Green
+                            document.getElementById("empName").value = "";
+                            document.getElementById("empEmail").value = "";
+                            setTimeout(() => window.location.reload(), 3500);
+                        }
+                    })
+                    .catch((error) => {
+                        msgDiv.innerText =
+                            "Connection error. Please try again.";
+                        msgDiv.style.color = "#C62828";
+                    });
+            }
+
+            // --- RETURN LOGIC ---
+            function submitReturnRequest() {
+                const loanId = document.getElementById("returnLoanId").value;
+                const msgDiv = document.getElementById("returnMessageBox");
+
+                if (!loanId) {
+                    alert("Please enter your Loan ID.");
+                    return;
+                }
+
+                msgDiv.className = "message-box";
+                msgDiv.innerText = "Processing return...";
+                msgDiv.style.color = "var(--text-light)";
+                msgDiv.style.display = "block";
+
+                fetch(APPS_SCRIPT_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "return", loanId: loanId }),
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        msgDiv.innerText = data.message;
+                        msgDiv.className = "message-box " + data.status; // Applies success(green) or error(red)
+
+                        if (data.status === "success") {
+                            document.getElementById("returnLoanId").value = "";
+                            setTimeout(() => window.location.reload(), 3500);
+                        }
+                    })
+                    .catch((error) => {
+                        msgDiv.innerText = "Error connecting to server.";
+                        msgDiv.className = "message-box error";
+                    });
+            }
+        </script>
+    </body>
+</html>
