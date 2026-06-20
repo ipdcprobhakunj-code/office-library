@@ -244,6 +244,55 @@
                 color: var(--accent-pink);
                 margin-right: 10px;
             }
+            .hero-kicker {
+                position: relative;
+                font-size: 0.92rem;
+                font-weight: 600;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                color: var(--text-mid);
+                margin-bottom: 4px;
+            }
+            .hero-badge-dept {
+                display: flex;
+                width: fit-content;
+                margin: 0 auto 18px;
+                background: var(--accent-pink-soft);
+                border-color: var(--border-glow);
+                color: var(--text-bright);
+            }
+            .hero-badge-dept i {
+                color: var(--accent-pink);
+            }
+            .hero-tagline {
+                position: relative;
+                font-family: "Hind Siliguri", sans-serif;
+                font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+                font-weight: 500;
+                color: var(--text-mid);
+                margin-top: 16px;
+                display: inline-flex;
+                align-items: center;
+                gap: 16px;
+            }
+            .hero-tagline::before,
+            .hero-tagline::after {
+                content: "";
+                width: 42px;
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--accent-pink)
+                );
+            }
+            .hero-tagline::after {
+                background: linear-gradient(
+                    90deg,
+                    var(--accent-pink),
+                    transparent
+                );
+            }
 
             /* ===== Container ===== */
             .container {
@@ -685,25 +734,112 @@
 
             /* ===== Footer ===== */
             .footer {
-                background: rgba(0, 0, 0, 0.3);
+                background: rgba(0, 0, 0, 0.35);
                 border-top: 1px solid var(--border-soft);
                 color: var(--text-mid);
-                text-align: center;
-                padding: 34px 5%;
                 margin-top: auto;
             }
-            .footer .footer-brand {
-                font-weight: 800;
-                color: var(--text-bright);
-                letter-spacing: 0.5px;
-                margin-bottom: 6px;
+            .footer-inner {
+                max-width: 1240px;
+                margin: 0 auto;
+                padding: 50px 5% 36px;
+                display: grid;
+                grid-template-columns: 1.8fr 1fr;
+                gap: 48px;
+                align-items: start;
             }
-            .footer .footer-brand span {
+            .footer-about .footer-brand {
+                font-family: "Hind Siliguri", sans-serif;
+                font-size: 1.45rem;
+                font-weight: 700;
+                color: var(--text-bright);
+                margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .footer-about .footer-brand .brand-dot {
                 color: var(--accent-pink);
             }
-            .footer p {
-                font-size: 0.85rem;
+            .footer-about .footer-brand .brand-sub {
+                font-family: "Montserrat", sans-serif;
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
                 color: var(--text-dim);
+            }
+            .footer-desc {
+                font-family: "Hind Siliguri", sans-serif;
+                font-size: 1rem;
+                line-height: 1.95;
+                color: var(--text-mid);
+                max-width: 580px;
+                position: relative;
+                padding-left: 18px;
+            }
+            .footer-desc::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 6px;
+                bottom: 6px;
+                width: 3px;
+                border-radius: 3px;
+                background: linear-gradient(
+                    180deg,
+                    var(--accent-pink),
+                    transparent
+                );
+            }
+            .footer-desc .lead {
+                display: block;
+                color: var(--text-bright);
+                font-weight: 600;
+                margin-bottom: 6px;
+            }
+            .footer-meta-title {
+                font-size: 0.78rem;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: var(--text-dim);
+                font-weight: 700;
+                margin-bottom: 16px;
+            }
+            .footer-meta a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: var(--text-mid);
+                text-decoration: none;
+                font-size: 0.92rem;
+                font-weight: 500;
+                padding: 8px 0;
+                transition: color 0.2s;
+            }
+            .footer-meta a i {
+                color: var(--accent-pink);
+                width: 16px;
+                text-align: center;
+            }
+            .footer-meta a:hover {
+                color: var(--text-bright);
+            }
+            .footer-bottom {
+                border-top: 1px solid var(--border-soft);
+                padding: 18px 5%;
+                text-align: center;
+                font-size: 0.82rem;
+                color: var(--text-dim);
+            }
+            .footer-bottom span {
+                color: var(--accent-pink);
+            }
+            @media (max-width: 760px) {
+                .footer-inner {
+                    grid-template-columns: 1fr;
+                    gap: 32px;
+                }
             }
 
             /* ===== Loading ===== */
@@ -776,11 +912,11 @@
             <span class="hero-badge">
                 <i class="fas fa-feather-pointed"></i> IPDC Office Library
             </span>
+            <span class="hero-badge hero-badge-dept">
+                <i class="fas fa-sitemap"></i> IPDC Operations Department
+            </span>
             <h1>প্রভাকুঞ্জ</h1>
-            <p>
-                <i class="fas fa-book-reader"></i> Knowledge Solutions for Every
-                Stage
-            </p>
+            <p class="hero-tagline">জ্ঞানের আলোয় উদ্ভাসিত</p>
         </section>
 
         <!-- Catalog Section -->
@@ -840,11 +976,37 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p class="footer-brand">IPDC<span>.</span> Office Library</p>
-            <p>
-                &copy; 2026 IPDC Office Library System. Empowering Growth
-                Through Knowledge.
-            </p>
+            <div class="footer-inner">
+                <div class="footer-about">
+                    <p class="footer-brand">
+                        প্রভাকুঞ্জ
+                        <span class="brand-dot">·</span>
+                        <span class="brand-sub">IPDC Operations</span>
+                    </p>
+                    <p class="footer-desc">
+                        <span class="lead">
+                            প্রভাকুঞ্জ, IPDC Finance-এর Operations-এর জন্য জ্ঞান
+                            সংগ্রহাগার।
+                        </span>
+                        Operations-ডিপার্টমেন্টের কাজে লাগে এমন বইগুলো সযত্নে
+                        সংগৃহীত এই ভান্ডারে। তবে সকল বিভাগের সহকর্মীরা স্বাধীনভাবে
+                        বই ধার নিতে পারেন, পড়ার পর ফেরত দিন।
+                    </p>
+                </div>
+                <div class="footer-meta">
+                    <p class="footer-meta-title">Quick Links</p>
+                    <a href="#catalog"
+                        ><i class="fas fa-book-open"></i> Browse Catalog</a
+                    >
+                    <a href="#return"
+                        ><i class="fas fa-undo-alt"></i> Return a Book</a
+                    >
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 IPDC Office Library System
+                <span>·</span> Empowering Growth Through Knowledge.
+            </div>
         </footer>
 
         <!-- Borrow Modal -->
